@@ -1,0 +1,10 @@
+    <nz-card style="width:300px;" nzTitle={{place.name}} [nzExtra]="extraTemplate">
+      <img class="cover" src={{place.cover}} alt="">
+      <p>Province: {{place.provincia}} </p>
+      <p>Card content</p>
+    </nz-card>
+    <ng-template #extraTemplate>
+      <!-- <app-drop-down></app-drop-down> -->
+      <a (click)="editPlace(place)">Edith</a>
+    </ng-template>
+  

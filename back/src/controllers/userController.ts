@@ -21,6 +21,16 @@ export async function createUserController(req: Request, res: Response) {
   }
 }
 
+export async function checkUserController(req: Request, res: Response): Promise<void> {
+  try {
+    const user = req.body
+    const userExists = await userService.checkUserService(user)
+    res.status(200).json({ exists: userExists })
+  } catch (error: any) {
+    res.status(500).json({ error: error.message })
+  }
+}
+
 export async function getAllUserController(_req: Request, res: Response) {
   try {
     const users = await userService.getAllUserService()

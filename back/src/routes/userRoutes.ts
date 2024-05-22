@@ -8,5 +8,6 @@ userRoutes.get('/', userController.getAllUserController)
 userRoutes.put('/', userController.editUserController)
 userRoutes.get('/:id', userController.findUserById)
 userRoutes.delete('/:id', userController.deleteUserController)
+userRoutes.post('/login', userController.checkUserController)
 
 export default userRoutes

@@ -1,0 +1,58 @@
+<form nz-form [formGroup]="placeForm" (ngSubmit)="submitForm()" >
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="name">Name</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input name="name" type="text" id="name"   formControlName="name"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="type">type</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+          <input nz-input name="type" type="text" id="type"   formControlName="type"/>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="description">description</nz-form-label>
+        <nz-form-control [nzSpan]="18">
+            <textarea nz-input name="description" type="text" id="description" formControlName="description" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+         
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="cover">cover</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+          <input nz-input name="cover" type="text" id="cover" formControlName="cover"/>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="provincia">provincia</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+          <input nz-input name="provincia" type="text" id="provincia" formControlName="provincia"/>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="provincia">provincia</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+          <input nz-input name="provincia" type="text" id="provincia" formControlName="provincia"/>
+        </nz-form-control>
+      </nz-form-item>
+
+   <div formGroupName="location">
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="coordinates">provincia</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+          <input nz-input name="coordinates" type="text" id="coordinates" formControlName="coordinates"/>
+        </nz-form-control>
+      </nz-form-item>
+
+   </div>
+   <button nz-button nzType="primary" type="submit">Submit</button>
+  </form>
+
+
+

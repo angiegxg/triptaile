@@ -1,3 +1,4 @@
+import { Request } from 'express'
 export interface Place {
   _id?: string
   name: string
@@ -30,4 +31,13 @@ export interface User {
   nation: string
   role: string
   post?: Array<string>
+}
+
+export interface Login {
+  email: string
+  password: string
+}
+
+interface AuthenticatedRequest extends Request {
+  user?: User
 }
