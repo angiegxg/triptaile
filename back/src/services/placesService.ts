@@ -99,11 +99,11 @@ export async function getAPlaceByIdService(id: string) {
   }
 }
 
-export async function nearestPlacesService(place: type.Place) {
+export async function nearestPlacesService(location: type.Location) {
   try {
-    const { coordinates } = place.location
+    const coordinates = location.coordinates
 
-    const minDistance = 1000 // Distancia mínima en metros
+    const minDistance = 0
     const maxDistance = 5000000
 
     console.log('estoy en el servicio')
@@ -119,6 +119,8 @@ export async function nearestPlacesService(place: type.Place) {
         },
       },
     })
+
+   
 
     console.log('Lugares ordenados por cercanía:', lugaresCercanos)
     return lugaresCercanos

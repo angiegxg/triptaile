@@ -56,12 +56,12 @@ export class FormComponent {
         this.placeService.updatePlace(formData).subscribe(
         (response) => {
           console.log('Server response:', response);
-          // Manejar la respuesta del servidor aquí
-          this.router.navigate(['/welcome']); // Redirige a la ruta deseada después de actualizar
+         
+          this.router.navigate(['/welcome']); 
         },
         (error) => {
           console.error('Error updating place:', error);
-          // Manejar el error aquí
+         
         }
       );
     }

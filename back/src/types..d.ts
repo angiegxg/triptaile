@@ -6,11 +6,13 @@ export interface Place {
   description: string
   cover: string
   provincia: string
-  location: {
-    type: string
-    coordinates: [number, number]
-  }
+  location: Location
   score: number
+}
+
+export interface Location {
+  type: string
+  coordinates: [number, number]
 }
 
 export interface Post {
@@ -29,7 +31,7 @@ export interface User {
   email: string
   password: string
   nation: string
-  role: string
+  role: Bolean
   post?: Array<string>
 }
 

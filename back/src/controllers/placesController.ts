@@ -97,9 +97,9 @@ export async function nearestPlacesServiceController(req: Request, res: Response
       throw console.error('request body is required')
     }
 
-    const place = req.body
-    console.log(place)
-    const nearestPlaceList = await placeService.nearestPlacesService(place)
+    const location = req.body
+    console.log(location)
+    const nearestPlaceList = await placeService.nearestPlacesService(location)
     res.status(200).json(nearestPlaceList)
 
     console.log('Lugares cercanos:', nearestPlaceList)

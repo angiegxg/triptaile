@@ -1,0 +1,9 @@
+
+    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue" (ngModelChange)="onProvinceChange($event)">
+      @for(province of provinces; track province) {
+        <nz-option nzLabel={{province}} nzValue={{province}}></nz-option>
+      }
+      
+    </nz-select>
+    <button class="login-form-forgot" (click)="nearestPlace()">{{buttonNearest}}</button>
+  

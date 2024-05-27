@@ -10,17 +10,23 @@ import * as type from "../shared/types"
 })
 export class PlaceService {
   public places = signal<type.Place[]>([]);
+  public filteredPlaces= signal<type.Place[]>([]);
+  public providencePlace= signal<string[]>([]);
   private readonly _http = inject(HttpClient);
   private readonly _url = environment.url;
 
   constructor() { 
-    this.getUsers();
+    this.getPlaces();
+    this.getProvidencePlaceService();
   }
 
-  public getUsers(): void {
+  public getPlaces(): void {
     this._http
       .get<type.Place[]>(`${this._url}`)
-      .pipe(tap((data: type.Place[]) => this.places.set(data)))
+      .pipe(tap((data: type.Place[]) => {
+        this.places.set(data)
+        this.filteredPlaces.set(data)
+      }))
       .subscribe();
   }
 
@@ -38,8 +44,72 @@ export class PlaceService {
         })
       );
     }
+
+    public deletePlaceService(id: string) {
+      return this._http.delete<{ success: boolean }>(`${this._url}/${id}`).pipe(
+        tap(response => {
+          
+            console.log(`Place with id ${id} deleted successfully.`);
+            this.places.update(places => {
+              const index = places.findIndex(place => place._id === id);
+              
+              if (index !== -1) {
+                places.splice(index, 1);
+              }
+              console.log([...places])
+              return [...places];
+            });
+          
+        })
+      );
+    }
+
+    public searchByNamePlaceService(name:string){
+      if (!name.trim()) {
+        this.filteredPlaces.set(this.places());
+        return;
+      }
+    
+      const searched = this.places().filter(place => 
+        place.name.toLowerCase().includes(name.toLowerCase())
+      );
+      this.filteredPlaces.set(searched);
+  }
+
+  private getProvidencePlaceService(){
+    const provinceSet = new Set<string>();
+    this.places().forEach(place => {
+      provinceSet.add(place.provincia);
+    });
+    this.providencePlace.set(Array.from(provinceSet));
+    console.log(this.providencePlace)
+  }
+  
+  public filterByProvincePlaceService(provincia: string): void {
+    if (provincia === null) {
+      this.filteredPlaces.set(this.places());
+      return;
+    }
+    const filtered = this.places().filter(place => place.provincia === provincia);
+    this.filteredPlaces.set(filtered);
+  }
+
+  public nearestPlaceService(location:type.Location): void {
+    this._http.post<type.Place[]>(`${this._url}/nearestplaces`, location).pipe(tap((data: type.Place[]) => {
+      console.log(data)
+      this.filteredPlaces.set(data)
+    }))
+    .subscribe();
+    
+  }
+
+  }
+
+    
+
+    
     
        
         
-      }
+      
    

@@ -6,10 +6,10 @@ import * as type from '../../types.'
 
 const userSchema = new Schema<type.User>({
   nickname: { type: String, required: true }, // Utiliza PlaceModel como tipo
-  email: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   nation: { type: String, required: true },
-  role: { type: String, required: true },
+  role: { type: Boolean, required: true },
   post: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
 })
 

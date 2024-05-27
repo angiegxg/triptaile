@@ -22,7 +22,5 @@ export class CardComponent {
   @Input() place!: types.Place;
   constructor(private router: Router) { }
 
-  editPlace(place: types.Place) {
-    this.router.navigate(['/place/edith'], { state: { place: place } });
-  }
+ 
 }

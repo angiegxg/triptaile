@@ -4,5 +4,7 @@ import { FormComponent } from './form/form.component';
 
 export const PLACE_ROUTES: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'edith', component: FormComponent},
+  { path: 'edit', component: FormComponent},
+  { path: 'newplace', component: FormComponent},
+
 ];

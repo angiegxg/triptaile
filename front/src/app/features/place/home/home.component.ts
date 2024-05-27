@@ -12,6 +12,6 @@ import { CommonModule } from '@angular/common';
 })
 export class HomeComponent {
   private readonly placeService = inject(PlaceService);
-  places = this.placeService.places
+  places = this.placeService.filteredPlaces
 
 }

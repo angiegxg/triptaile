@@ -1,34 +1,61 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NonNullableFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { UserService } from '../../services/user.service';
+import {  inject } from "@angular/core";
+import * as types from '../../shared/types'
 
 @Component({
   selector: 'app-login',
   standalone:true,
   imports: [
     NzFormModule,
-    NzIconModule
+    NzIconModule,
+    NzInputModule,
+    ReactiveFormsModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  validateForm: FormGroup<{
-    userName: FormControl<string>;
+  private readonly userService = inject(UserService)
+  user!:types.Login
+  loginForm: FormGroup<{
+    email: FormControl<string>;
     password: FormControl<string>;
-    remember: FormControl<boolean>;
-  }> = this.fb.group({
-    userName: ['', [Validators.required]],
-    password: ['', [Validators.required]],
-    remember: [true]
-  });
+   
+  }>
+
+  
+  constructor(private fb: NonNullableFormBuilder){
+this.loginForm=this.makeForm()
+  }
+
+  makeForm(): FormGroup{
+    return this.fb.group({
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+     
+    });
+  }
+  
 
   submitForm(): void {
-    if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
+    if (this.loginForm.valid) {
+      const formData: types.Login = {
+        email: this.loginForm.get('email')!.value,
+        password: this.loginForm.get('password')!.value
+      };
+      console.log('submit', formData);
+      this.userService.loginService(formData).subscribe((data: types.ResponseLogin) => {
+       
+       
+      });
+      
     } else {
-      Object.values(this.validateForm.controls).forEach(control => {
+      Object.values(this.loginForm.controls).forEach(control => {
         if (control.invalid) {
           control.markAsDirty();
           control.updateValueAndValidity({ onlySelf: true });
@@ -37,5 +64,10 @@ export class LoginComponent {
     }
   }
 
-  constructor(private fb: NonNullableFormBuilder) {}
-}
+ 
+  }
+  
+
+
+  
+
