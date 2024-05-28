@@ -11,9 +11,19 @@ import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { withFetch, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 registerLocaleData(en);
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration(), provideNzIcons(), provideNzI18n(en_US), importProvidersFrom(FormsModule), provideAnimationsAsync(), provideHttpClient(withFetch(), withInterceptors([authInterceptor]))]
+  providers: [
+    
+    provideRouter(routes), 
+    provideClientHydration(), 
+    provideNzIcons(), 
+    provideNzI18n(en_US), 
+    importProvidersFrom(FormsModule), 
+    provideAnimationsAsync(), 
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor]))
+  ]
 };

@@ -49,6 +49,10 @@ export class UserService {
       }
       return null;
     }
+
+    public isAdminService(){
+      return this.user()?.role === 'admin'
+    }
     
   }
 

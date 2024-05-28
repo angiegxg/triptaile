@@ -1,4 +1,6 @@
 <div class="grid">
+    <app-search-place></app-search-place>
+    <app-filter-by-providence></app-filter-by-providence>
     @for (place of places(); track place) {
         <app-card [place]="place"></app-card>
         }

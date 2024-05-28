@@ -4,7 +4,10 @@
       <p>Card content</p>
     </nz-card>
     <ng-template #extraTemplate>
-      <app-drop-down [place]="place"></app-drop-down>
+      @if (isAdmin){
+
+        <app-drop-down [place]="place"></app-drop-down>
+      }
       
     </ng-template>
   
