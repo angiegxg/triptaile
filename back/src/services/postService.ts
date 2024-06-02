@@ -1,23 +1,3 @@
-// import * as type from "../types."
-// import PostModel from "../dataBase/models/postModel"
-// import * as userService from "./userService"
-
-// export async function createPostService(post:type.Post) {
-//     try {
-//         const newPost= new PostModel(post)
-//         await newPost.save();
-//         const user = await userService.findUserById(post.idUser);
-
-//             user?.post?.push(newPost._id)
-//             await user?.save()
-
-//         console.log('Post creado exitosamente');
-//         return newPost;
-//     } catch (error) {
-//         console.error('Error al crear el usuario:', error);
-//         throw error;
-//     }
-// }
 import * as type from '../types.'
 import PostModel from '../dataBase/models/postModel'
 import * as userService from './userService'

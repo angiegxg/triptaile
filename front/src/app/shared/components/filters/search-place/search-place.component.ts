@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, inject  } from '@angular/core';
 import { NzMentionModule } from 'ng-zorro-antd/mention';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PlaceService } from '../../../../services/place.service';
+import { PlaceService } from '../../../../features/place/place.service';
 
 @Component({
   selector: 'app-search-place',

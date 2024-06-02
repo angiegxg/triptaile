@@ -9,8 +9,9 @@ export async function createPlaceService(place: type.Place) {
     const placeSave = await nuevoPlace.save()
 
     console.log('Lugar creado exitosamente:', placeSave)
-  } catch (error) {
-    console.error('Error al crear el lugar:', error)
+    return placeSave
+  } catch (error: any) {
+    throw new Error(error)
   }
 }
 
@@ -119,8 +120,6 @@ export async function nearestPlacesService(location: type.Location) {
         },
       },
     })
-
-   
 
     console.log('Lugares ordenados por cercanía:', lugaresCercanos)
     return lugaresCercanos

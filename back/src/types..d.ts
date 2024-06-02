@@ -32,6 +32,7 @@ export interface User {
   password: string
   nation: string
   role: Bolean
+  avatar: string
   post?: Array<string>
 }
 

@@ -9,7 +9,7 @@ export async function createPlaceController(req: Request, res: Response) {
 
     const place = req.body
     const newPlace = await placeService.createPlaceService(place)
-    res.status(200).json({ data: newPlace })
+    res.status(200).json(newPlace)
 
     console.log('Lugar creado exitosamente:', newPlace)
   } catch (error) {

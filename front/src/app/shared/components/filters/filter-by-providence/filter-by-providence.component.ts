@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { FormsModule } from '@angular/forms';
-import { PlaceService } from '../../../../services/place.service';
+import { PlaceService } from '../../../../features/place/place.service';
 
 @Component({
   selector: 'app-filter-by-providence',
@@ -32,10 +32,16 @@ export class FilterByProvidenceComponent {
           position.coords.latitude, position.coords.longitude
         ] as [number, number]   
       }
+      
       this.PlaceService.nearestPlaceService(location)
       
 
     
-    });
+    },
+    (error) => {
+      console.log(error)
+    },
+    { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+  );
   }
 }

@@ -1,0 +1,39 @@
+<form [formGroup]="userForm" (ngSubmit)="submitForm()">
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="nickname">Nickname</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input nz-input name="nickname" type="text" id="nickname"   formControlName="nickname"/>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="email">Nickname</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input nz-input name="email" type="text" id="email"   formControlName="email"/>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="password">Password</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input nz-input name="password" type="password" id="password"   formControlName="password"/>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="nation">Nation</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input nz-input name="nation" type="nation" id="nation"   formControlName="nation"/>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="avatar">avatar</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input nz-input id="file" type="file" (change)="onFileSelected($event)" />
+    </nz-form-control>
+  </nz-form-item>
+  
+  <button nz-button nzType="primary" type="submit">Submit</button>
+</form>

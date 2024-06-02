@@ -4,7 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { UserService } from './services/user.service';
+import { UserService } from './features/user/user.service';
 import { MenuLoginComponent } from './shared/components/menu-login/menu-login.component';
 import { SearchPlaceComponent } from './shared/components/filters/search-place/search-place.component';
 import { FilterByProvidenceComponent } from './shared/components/filters/filter-by-providence/filter-by-providence.component';

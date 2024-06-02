@@ -3,9 +3,9 @@ import { FormControl, FormGroup, NonNullableFormBuilder, Validators, ReactiveFor
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../user/user.service';
 import {  inject } from "@angular/core";
-import * as types from '../../shared/types'
+import * as types from '../../../shared/types'
 
 @Component({
   selector: 'app-login',

@@ -1,6 +1,7 @@
 import express from 'express'
 import * as postController from '../controllers/postController'
 import multerUpload from '../config/multerConfig'
+// import checkToken from '../middlewares/authMiddleware'
 
 const postRoutes = express.Router()
 

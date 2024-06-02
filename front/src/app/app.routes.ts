@@ -12,6 +12,7 @@ export const routes: Routes = [
    .then(m => m.WELCOME_ROUTES) 
   },
   { path: 'place', loadChildren: () => import('./features/place/place.routes').then(m => m.PLACE_ROUTES) },
-  { path: 'auth', loadChildren: () => import('./pages/login/auth.routes').then(m => m.AUTH_ROUTES) }
+  { path: 'auth', loadChildren: () => import('./features/user/auth.routes').then(m => m.AUTH_ROUTES) },
+  { path: 'detail', loadChildren: () => import('./pages/pages.routes').then(m => m.PAGE_ROUTES) }
 
 ];

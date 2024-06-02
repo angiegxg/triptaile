@@ -2,7 +2,7 @@ import { Component,  Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { RouterModule } from '@angular/router';
-import { PlaceService } from '../../../services/place.service';
+import { PlaceService } from '../../../features/place/place.service';
 import * as types from '../../types'
 import { Router } from '@angular/router';
 

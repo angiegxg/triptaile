@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { RouterModule } from '@angular/router';
-import { UserService } from '../../../services/user.service';
+import { UserService } from '../../../features/user/user.service';
 
 @Component({
   selector: 'app-menu-login',

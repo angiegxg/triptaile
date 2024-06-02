@@ -19,7 +19,7 @@ export interface Place {
   export interface Post {
     _id?: string
     idUser: string
-    place: Place
+    place: string
     review: string
     cover: string
     rate: number
@@ -32,9 +32,12 @@ export interface Place {
     email: string
     password: string
     nation: string
+    avatar:string
     role: bolean
     post?: Array<string>
   }
+
+  export type UserRegister = Omit<User, 'role'>;
   
   export interface Login {
     email: string

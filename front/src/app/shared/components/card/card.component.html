@@ -4,10 +4,12 @@
       <p>Card content</p>
     </nz-card>
     <ng-template #extraTemplate>
+      
       @if (isAdmin){
 
         <app-drop-down [place]="place"></app-drop-down>
       }
+
+      <a [routerLink]="['/detail']" [state]="{detail: place}">Detail</a>
       
     </ng-template>
-  

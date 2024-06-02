@@ -1,0 +1,38 @@
+
+    <nz-comment nzAuthor={{review.idUser}} [nzDatetime]="time">
+      <nz-avatar
+        nz-comment-avatar
+        nzIcon="user"
+        nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+      ></nz-avatar>
+      <nz-comment-content>
+        <p>
+          {{review.review}}
+        </p>
+      </nz-comment-content>
+      
+      <!-- <nz-comment-action>
+        <span
+          nz-tooltip
+          nzTitle="Like"
+          nz-icon
+          nzType="like"
+          [nzTheme]="likes > 0 ? 'twotone' : 'outline'"
+          (click)="like()"
+        ></span>
+        <span class="count like">{{ likes }}</span>
+      </nz-comment-action>
+      <nz-comment-action> -->
+        <!-- <span
+          nz-tooltip
+          nzTitle="Dislike"
+          nz-icon
+          nzType="dislike"
+          [nzTheme]="dislikes > 0 ? 'twotone' : 'outline'"
+          (click)="dislike()"
+        ></span>
+        <span class="count dislike">{{ dislikes }}</span>
+      </nz-comment-action>
+      <nz-comment-action>Reply to</nz-comment-action> -->
+    </nz-comment>
+  

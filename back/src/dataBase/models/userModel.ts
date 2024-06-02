@@ -10,6 +10,7 @@ const userSchema = new Schema<type.User>({
   password: { type: String, required: true },
   nation: { type: String, required: true },
   role: { type: Boolean, required: true },
+  avatar: { type: String, required: true },
   post: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
 })
 

@@ -1,17 +1,20 @@
-// import jwt from 'jsonwebtoken'
-// import { Request, Response, NextFunction } from 'express'
-// import * as type from '../types.'
+import { Request, Response, NextFunction } from 'express'
+import jwt from 'jsonwebtoken'
 
-// export function authenticateToken(req: Request, res: Response, next: NextFunction) {
-//   const authHeader = req.headers['authorization']
-//   const token = authHeader && authHeader.split(' ')[1]
+const checkToken = (req: Request, res: Response, next: NextFunction) => {
+  if (!req.headers['authorization']) {
+    return res.json({ error: 'no hay token' })
+  }
+  const token = req.headers['authorization']
 
-//   if (token == null) return res.sendStatus(401) // No token provided
-
-//   jwt.verify(token, 'triptale', (err, user) => {
-//     if (err) return res.sendStatus(403) // Invalid token
-
-//     req.user = user as type.AuthenticatedRequest
-//     next() // Continue with the request
-//   })
-// }
+  try {
+    console.log('este es auth: ' + req.headers['authorization'])
+    const payload = jwt.verify(token, 'triptale')
+    console.log(payload)
+    next()
+    return
+  } catch (err) {
+    return res.json({ error: 'token incorrecto' })
+  }
+}
+export default checkToken

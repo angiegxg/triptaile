@@ -3,8 +3,8 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { CommonModule } from '@angular/common';
 import { DropDownComponent } from '../drop-down/drop-down.component';
 import * as types from '../../types'
-import { Router } from '@angular/router';
-import { UserService } from '../../../services/user.service';
+import { Router, RouterModule } from '@angular/router';
+import { UserService } from '../../../features/user/user.service';
 
 
 
@@ -14,7 +14,8 @@ import { UserService } from '../../../services/user.service';
   imports: [
     NzCardModule,
     CommonModule,
-    DropDownComponent
+    DropDownComponent,
+    RouterModule
   ],
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css']
@@ -22,7 +23,7 @@ import { UserService } from '../../../services/user.service';
 export class CardComponent {
   @Input() place!: types.Place;
   public readonly userService =inject(UserService)
-  isAdmin=this.userService.isAdminService()
+  isAdmin=this.userService.user()?.role
 
   constructor(private router: Router) { }
 

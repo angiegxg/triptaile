@@ -7,9 +7,18 @@ export async function createUserController(req: Request, res: Response) {
     if (!req.body) {
       throw console.error('request body is required')
     }
-
     const user = req.body
-    const newUser = await userService.createUserService(user)
+    const userData = {
+      nickname: user.nickname,
+      email: user.email,
+      password: user.password,
+      nation: user.nation,
+      avatar: user.avatar,
+      role: false,
+      post: [],
+    }
+
+    const newUser = await userService.createUserService(userData)
     res.status(200).json(newUser)
 
     console.log('Lugar creado exitosamente:', newUser)

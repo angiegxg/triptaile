@@ -1,6 +1,9 @@
 <div class="grid">
     <app-search-place></app-search-place>
     <app-filter-by-providence></app-filter-by-providence>
+    @if(isAdmin){
+        <a [routerLink]="['/place/newplace']"> New Place </a>
+    }
     @for (place of places(); track place) {
         <app-card [place]="place"></app-card>
         }

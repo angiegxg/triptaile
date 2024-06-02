@@ -1,0 +1,26 @@
+<nz-descriptions nzTitle="User Info">
+    <nz-descriptions-item nzTitle="Place"> {{detail.name}} </nz-descriptions-item>
+    
+    <nz-descriptions-item nzTitle="Telephone"><img
+        nz-image
+        width="200px"
+        height="200px"
+        src={{detail.cover}}
+        alt=""
+      /></nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Province"> {{detail.provincia}} </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Description">{{detail.description}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Score"> {{detail.score}} </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Review">
+    
+      
+    </nz-descriptions-item>
+    <button (click)="getGoogleMapsUrl()">Como llegar</button>
+  </nz-descriptions>
+
+  
+  @for(review of reviews; track review){
+    
+    <app-review [review]="review"></app-review>
+
+  }

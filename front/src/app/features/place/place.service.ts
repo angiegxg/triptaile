@@ -1,9 +1,9 @@
-import { environment } from "../../environments/environments";
+import { environment } from "../../../environments/environments";
 import { Injectable, inject, signal } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { tap } from "rxjs";
-import * as type from "../shared/types"
+import { tap, filter} from "rxjs";
+import * as type from "../../shared/types"
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +30,15 @@ export class PlaceService {
       .subscribe();
   }
 
+  public createPlaceService(place: type.Place): Observable<type.Place> {
+    return this._http.post<type.Place>(`${this._url}/newplace`, place).pipe(
+      tap(newPlace => {
+        
+          return this.places.update(places => [...places, newPlace]);
+        })
+      )}
+    
+  
 
     public updatePlace(place: type.Place): Observable<type.Place> {
       return this._http.put<type.Place>(`${this._url}/editplace`, place).pipe(
