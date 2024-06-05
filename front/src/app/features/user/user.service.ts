@@ -12,7 +12,7 @@ import * as type from "../../shared/types"
 export class UserService {
   public user = signal<type.User | null>(null)
   public token = signal<String | null>(null)
-  public usersAdmin = signal<type.User[] | null>(null)
+  public usersAdmin = signal<type.User[]>([])
   private readonly _http = inject(HttpClient);
   private readonly router = inject(Router);
   private readonly _url = "http://localhost:3000/user";
@@ -25,6 +25,7 @@ export class UserService {
      this._http.get<type.User[]>(`${this._url}`)
      .pipe(tap((data: type.User[]) => {
       this.usersAdmin.set(data)
+      console.log("estos son los users", data)
     }))
     .subscribe();
   }
@@ -69,6 +70,38 @@ export class UserService {
       );
     }
 
+    public updateUserService(user: type.User){
+      return this._http.put<type.User>(`${this._url}`, user).pipe(
+        tap((updatedUser: type.User) => {
+        this.usersAdmin.update(users => {
+          const index = users.findIndex(u => u._id === updatedUser._id);
+          users[index] = updatedUser;
+          return [...users];
+        })
+          
+          this.router.navigate(['/welcome'])
+        })
+      );
+    }
+
+    public deleteUserService(id: string) {
+      return this._http.delete<{ success: boolean }>(`${this._url}/${id}`).pipe(
+        tap(response => {
+          
+            console.log(`Place with id ${id} deleted successfully.`);
+            this.usersAdmin.update(users => {
+              const index = users.findIndex(place => place._id === id);
+              
+              if (index !== -1) {
+                users.splice(index, 1);
+              }
+              console.log([...users])
+              return [...users];
+            });
+          
+        })
+      );
+    }
     
     
   }
