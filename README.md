@@ -88,5 +88,5 @@ La aplicación frontend ahora debería estar accesible en http://localhost:3000 
 
 Para más detalles sobre cómo utilizar y entender la funcionalidad de nuestra aplicación, consulta los siguientes documentos:
 
-- [Guía de la API](https://linktoapidocumentation) - Encuentra aquí la descripción detallada de los endpoints de la API, incluyendo parámetros, tipos de respuesta y ejemplos de uso.
-- [Guía del Usuario](https://linktouserguide) - Una guía completa para usuarios que te ayudará a navegar y aprovechar al máximo nuestra aplicación.
+- [Guía de la API](https://github.com/angiegxg/triptaile/blob/main/documents/DocumentacionTripTaleAndaluz.pdf) - Encuentra aquí la descripción detallada de los endpoints de la API, incluyendo parámetros, tipos de respuesta y ejemplos de uso.
+- [Guía del Usuario](https://github.com/angiegxg/triptaile/blob/main/documents/manual%20de%20usuario%20TripTaleAndaluz.pdf) - Una guía completa para usuarios que te ayudará a navegar y aprovechar al máximo nuestra aplicación.
