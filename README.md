@@ -7,7 +7,7 @@ Echa un vistazo a nuestro código, colabora y ayúdanos a hacer de Trip Tale Ada
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](images\screnWelcome.png)
 
 
 ##  Instrucciones de Instalación
