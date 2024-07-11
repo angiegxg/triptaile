@@ -7,7 +7,7 @@ Echa un vistazo a nuestro código, colabora y ayúdanos a hacer de Trip Tale Ada
 
 ## Screenshots
 
-![App Screenshot](images\screnWelcome.png)
+![App Screenshot](https://github.com/angiegxg/triptaile/blob/main/images/screnWelcome.png)
 
 
 ##  Instrucciones de Instalación
