@@ -1,3 +1,5 @@
+import dotenv from 'dotenv'
+dotenv.config()
 import express from 'express'
 import { db } from './config/db' // Importa la conexión a la base de datos desde db.ts
 import placesRoutes from './routes/placesRoutes'
@@ -24,25 +26,7 @@ app.use('/user', userRoutes)
 app.use('/post', postRoutes)
 app.use('/api/upload', uploadRoutes)
 app.use('/uploads', express.static(path.join('uploads')))
-// app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
-//   console.error('Error stack:', err instanceof Error ? err.stack : 'No stack available')
-//   console.error('Error message:', err instanceof Error ? err.message : 'No message available')
 
-//   res.status(500).json({
-//     message: 'Internal server error',
-//     error:
-//       err instanceof Error?
-//          {
-//             message: err.message,
-//             stack: err.stack,
-//           }
-//         : {
-//             message: 'An unknown error occurred',
-//           },
-//   })
-// })
-
-// Espera a que se establezca la conexión a la base de datos antes de escuchar en el puerto
 db.once('open', () => {
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)

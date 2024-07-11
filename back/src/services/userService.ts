@@ -1,28 +1,29 @@
 import * as type from '../types.'
 import UserModel from '../dataBase/models/userModel'
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
+import jwt, { Secret } from 'jsonwebtoken'
+import config from '../config/constConfig'
+const KEY_SECRET = config.SECRET_KEY
+if (!KEY_SECRET) {
+  throw new Error('La clave secreta no está definida')
+}
 
 export async function createUserService(user: type.User) {
   const hashedPassword = await bcrypt.hash(user.password, 10)
   user.password = hashedPassword
-
   const newUser = new UserModel(user)
 
   try {
-    // Guardar el nuevo usuario en la base de datos
     await newUser.save()
-    console.log('Usuario creado exitosamente')
     return newUser
   } catch (error) {
-    console.error('Error al crear el usuario:', error)
     throw error
   }
 }
 
-function createTokenService(user: type.User): string {
+export function createTokenService(user: type.User): string {
   const payload = { user_id: user._id, user_email: user.email, user_role: user.role }
-  return jwt.sign(payload, 'triptale')
+  return jwt.sign(payload, KEY_SECRET as Secret)
 }
 
 export async function checkUserService(user: type.Login) {
@@ -31,7 +32,6 @@ export async function checkUserService(user: type.Login) {
   try {
     if (userfind && userfind.password) {
       const isPasswordMatch = await bcrypt.compare(user.password, userfind.password)
-
       if (isPasswordMatch) {
         const token = createTokenService(userfind)
         return { token, user: userfind }
@@ -39,9 +39,8 @@ export async function checkUserService(user: type.Login) {
         throw new Error('Contraseña incorrecta')
       }
     }
-    return 'usuario no encontrado'
+    throw new Error('Usuario no encontrado')
   } catch (error) {
-    console.error('Error al iniciar sesion:', error)
     throw error
   }
 }

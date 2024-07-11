@@ -6,7 +6,7 @@ import * as userService from '../services/userService'
 export async function createUserController(req: Request, res: Response) {
   try {
     if (!req.body) {
-      throw console.error('request body is required')
+      throw new Error('body is required')
     }
     const user = req.body
     const userData = {
@@ -21,8 +21,6 @@ export async function createUserController(req: Request, res: Response) {
 
     const newUser = await userService.createUserService(userData)
     res.status(200).json(newUser)
-
-    console.log('Lugar creado exitosamente:', newUser)
   } catch (error) {
     res.status(500).json({
       message: 'Internal server error',
@@ -42,7 +40,6 @@ export async function checkUserController(req: Request, res: Response): Promise<
 }
 export async function getUserByToken(req: Request, res: Response) {
   try {
-    console.log('estoy en el controlador de getuserbytoken', req)
     const payload = req.user
     if (payload) {
       const user = await userService.findUserById(payload)
@@ -51,7 +48,6 @@ export async function getUserByToken(req: Request, res: Response) {
       res.status(400).json({ error: 'No se pudo obtener el usuario' })
     }
   } catch (error) {
-    console.error('Error al obtener usuario:', error)
     res.status(500).json({ error: 'Error interno del servidor' })
   }
 }
@@ -71,7 +67,7 @@ export async function getAllUserController(_req: Request, res: Response) {
 export async function findUserById(req: Request, res: Response) {
   try {
     if (!req.params.id) {
-      throw console.error('request params is required')
+      throw new Error('params is required')
     }
     const user = await userService.findUserById(req.params.id)
 
@@ -87,7 +83,7 @@ export async function findUserById(req: Request, res: Response) {
 export async function editUserController(req: Request, res: Response) {
   try {
     if (!req.body) {
-      throw console.error('request body is required')
+      throw new Error('body is required')
     }
     const user = await userService.editUserService(req.body)
 
@@ -103,7 +99,7 @@ export async function editUserController(req: Request, res: Response) {
 export async function deleteUserController(req: Request, res: Response) {
   try {
     if (!req.params.id) {
-      throw console.error('request params is required')
+      throw new Error('params is required')
     }
     const user = await userService.deleteUserService(req.params.id)
 

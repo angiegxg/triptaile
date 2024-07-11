@@ -10,6 +10,7 @@ const config = {
   IMG_URL: process.env.IMG_URL,
   FILE_URL: path.join(__dirname, '../../uploads'),
   FILE_SERVER_URL: process.env.FILE_SERVER,
+  SECRET_KEY: process.env.SECRET_KEY,
 }
 
 export default config

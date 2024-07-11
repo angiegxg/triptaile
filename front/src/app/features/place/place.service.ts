@@ -14,7 +14,7 @@ export class PlaceService {
   public filteredPlaces= signal<type.Place[]>([]);
   public providencePlace= signal<string[]>([]);
   private readonly _http = inject(HttpClient);
-  private readonly _url = environment.url;
+  private readonly _url = environment.baseUrl;
   private message= inject(NzMessageService) 
 
   constructor() { 
@@ -24,7 +24,7 @@ export class PlaceService {
 
   public getPlaces(): void {
     this._http
-      .get<type.Place[]>(`${this._url}`)
+      .get<type.Place[]>(`${this._url}/places`)
       .pipe(tap((data: type.Place[]) => {
         this.places.set(data)
         this.filteredPlaces.set(data)
@@ -33,7 +33,7 @@ export class PlaceService {
   }
 
   public createPlaceService(place: type.Place): Observable<type.Place> {
-    return this._http.post<type.Place>(`${this._url}/newplace`, place).pipe(
+    return this._http.post<type.Place>(`${this._url}/places/newplace`, place).pipe(
       tap(newPlace => {
         
           return this.places.update(places => [...places, newPlace]);
@@ -43,7 +43,7 @@ export class PlaceService {
   
 
     public updatePlace(place: type.Place): Observable<type.Place> {
-      return this._http.put<type.Place>(`${this._url}/editplace`, place).pipe(
+      return this._http.put<type.Place>(`${this._url}/places/editplace`, place).pipe(
         tap(updatedPlace => {
           this.places.update(places => {
             const index = places.findIndex(place => place._id === updatedPlace._id);
@@ -57,7 +57,7 @@ export class PlaceService {
     }
 
     public deletePlaceService(id: string) {
-      return this._http.delete<{ success: boolean }>(`${this._url}/${id}`).pipe(
+      return this._http.delete<{ success: boolean }>(`${this._url}/places/${id}`).pipe(
         tap(response => {
           
           this.message.create("success", `Place with id ${id} deleted successfully.`)
@@ -106,7 +106,7 @@ export class PlaceService {
   }
 
   public nearestPlaceService(location:type.Location): void {
-    this._http.post<type.Place[]>(`${this._url}/nearestplaces`, location).pipe(tap((data: type.Place[]) => {
+    this._http.post<type.Place[]>(`${this._url}/places/nearestplaces`, location).pipe(tap((data: type.Place[]) => {
       
       this.filteredPlaces.set(data)
     }))

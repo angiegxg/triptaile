@@ -18,7 +18,7 @@ Install my-project with npm
 Para empezar a usar o contribuir a Trip Tale Adaluz, sigue estos pasos para configurar el entorno de desarrollo en tu máquina local.
 
 ### Prerrequisitos
-Asegúrate de tener instalado Git y Node.js en tu computadora. Estos son esenciales para descargar el repositorio y ejecutar el proyecto.
+Asegúrate de tener instalado Git, Node.js y MongoDB en tu computadora. Estos son esenciales para descargar el repositorio, ejecutar el proyecto y manejar la base de datos.
 
 ### Clonar el Repositorio
 Primero, necesitas clonar el repositorio de Trip Tale Adaluz. Abre una terminal y ejecuta:  
@@ -31,24 +31,38 @@ Primero, necesitas clonar el repositorio de Trip Tale Adaluz. Abre una terminal 
 ```bash
    
 ```
+### Configuración de la Base de Datos
+Antes de ejecutar la aplicación, necesitas configurar MongoDB:
+Asegúrate de que MongoDB esté instalado y corriendo en tu máquina. Para verificar, puedes usar:
+
+```bash
+   mongod --version
+```
+Crea una nueva base de datos llamada trip_tale_adaluz o el nombre que prefieras.
+
 ### Configuración del Entorno
+
 Para configurar el entorno de desarrollo:
 
-1. Instala las dependencias necesarias ejecutando:
+1. Crea un archivo .env en los directorios back y front con las variables de entorno necesarias. Aquí te dejo un ejemplo básico de lo que podrías necesitar:
+    1. #### back/.env
+        ```bash
+        PORT=3000
+        DB_URL=mongodb://localhost:27017/triptale
+        HOST_URL=C:\Users\angie\OneDrive\Escritorio\master\personal\salon\triptale\back
+        BASE_URL=http://localhost:3000
+        IMG_URL= http://localhost:3000/api/uploads
+        FILE_SERVER_URL= http://localhost:3000/api/file
+        SECRET_KEY=triptale
+            ```
 
-```bash
-cd back
-npm install
-cd ../front
-npm install 
-```
-2. Crea un archivo .env en los directorios back y front con las variables de entorno necesarias. Aquí te dejo un ejemplo básico de lo que podrías necesitar:
+    2. #### front/.env
 
-```bash
-XXX
-   
-```
-###Ejecutar la Aplicación
+        ```bash
+            baseUrl: 'http://localhost:3000',
+            
+            ```
+### Ejecutar la Aplicación
 Para poner en marcha la aplicación:
 
 1. Inicia el servidor backend desde el directorio back:
@@ -62,7 +76,7 @@ Para poner en marcha la aplicación:
   ng s
 ```
 
-La aplicación frontend ahora debería estar accesible en http://localhost:3000 en tu navegador, y debería conectarse al backend ejecutándose en http://localhost:5000.
+La aplicación frontend ahora debería estar accesible en http://localhost:3000 en tu navegador, y debería conectarse al backend ejecutándose en http://localhost:4000.
 
 ¡Listo! Ahora puedes explorar, desarrollar y contribuir a mejorar Trip Tale Adaluz.
 

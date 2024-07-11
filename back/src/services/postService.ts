@@ -9,9 +9,7 @@ export async function createPostService(post: type.Post) {
 
     await newPost.save()
 
-    // Encontrar el usuario asociado al post por su ID
     const user = await userService.findUserById(newPost.idUser)
-    console.log(user)
 
     if (!user) {
       throw new Error('No se encontró el usuario asociado al post.')
@@ -24,10 +22,8 @@ export async function createPostService(post: type.Post) {
     user.post.push(newPost._id)
     await user.save()
 
-    console.log('Post creado exitosamente')
     return newPost
   } catch (error) {
-    console.error('Error al crear el post:', error)
     throw error
   }
 }
@@ -37,7 +33,7 @@ export async function calculatePlaceScoreService(placeId: string) {
     const reviews = await PostModel.find({ place: placeId })
 
     if (reviews.length === 0) {
-      return 0 // Si no hay lugares, el promedio es 0
+      return 0
     }
 
     const rates = reviews.map((rate) => rate.rate)
@@ -45,8 +41,6 @@ export async function calculatePlaceScoreService(placeId: string) {
     const totalRate = rates.reduce((sum, rate) => sum + rate, 0)
 
     const averageRate = totalRate / rates.length
-
-    console.log('este es el nuevo score del lugar: ' + averageRate)
 
     return averageRate
   } catch (error: unknown) {
@@ -92,7 +86,6 @@ export async function deletePostService(postId: string) {
 
     return deletedPost
   } catch (error: unknown) {
-    console.error('Error al eliminar el post:', error)
     throw error
   }
 }

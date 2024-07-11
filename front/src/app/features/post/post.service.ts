@@ -1,4 +1,4 @@
-import { environment } from "../../../environments/environments.development";
+import { environment } from "../../../environments/environments.prod";
 import { Injectable, inject, signal } from "@angular/core";
 import { HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -17,7 +17,7 @@ export class PostService {
   public mixedPostsUser = signal<type.Place[]>([])
   private readonly _http = inject(HttpClient);
   private readonly placeService =inject (PlaceService)
-  private readonly _url = environment.url;
+  private readonly _url = `${environment.baseUrl}/post`;
 
   constructor() { 
     this.getPosts();
@@ -28,7 +28,7 @@ export class PostService {
   
 
   public getPosts(): void {
-     this._http.get<type.Post[]>(`http://localhost:3000/post/`).pipe(
+     this._http.get<type.Post[]>(`${this._url}`).pipe(
       tap((data: type.Post[]) => {
         this.posts.set(data);
       })
@@ -36,7 +36,7 @@ export class PostService {
   }
 
   public createPostService(post: type.Post){
-    return this._http.post<type.Post>(`http://localhost:3000/post/`, post).pipe(
+    return this._http.post<type.Post>(`${this._url}`, post).pipe(
       tap((newPost: type.Post) => {
          this.postsUser.update(posts=>[...posts,newPost])
          this.posts.update(posts=>[...posts,newPost])      
@@ -87,7 +87,7 @@ export class PostService {
   
 
   public updatePostService(post: type.User){
-    return this._http.put<type.Post>(`http://localhost:3000/post/`, post)
+    return this._http.put<type.Post>(`${this._url}`, post)
     .pipe(
       tap((updatedUser: type.Post) => {
       this.postsUser.update(posts => {
@@ -100,7 +100,7 @@ export class PostService {
     );
   }
   public deletePostService(id: string) {
-    return this._http.delete<{ success: boolean }>(`http://localhost:3000/post/${id}`).pipe(
+    return this._http.delete<{ success: boolean }>(`${this._url}/${id}`).pipe(
       tap(response => {
         
           console.log(`Place with id ${id} deleted successfully.`);
@@ -122,10 +122,10 @@ export class PostService {
     console.log(error)
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
-      // Error del lado del cliente
+     
       errorMessage = `Client-side error: ${error.error.message}`;
     } else {
-      // Error del lado del servidor
+      
       errorMessage = `Server-side error: ${error.status} - ${error.message}`;
     }
     console.error(errorMessage);

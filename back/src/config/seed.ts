@@ -13,7 +13,7 @@ export async function createAdmin() {
   }
 
   try {
-    await db // Asegúrate de que la conexión a la base de datos esté lista
+    await db
     const adminExists = await UserModel.findOne({ email: user.email })
     if (!adminExists) {
       const newUser = new UserModel(user)
@@ -29,5 +29,4 @@ export async function createAdmin() {
   }
 }
 
-// Ejecuta la función createAdmin
 createAdmin()

@@ -7,8 +7,6 @@ export async function createPlaceService(place: type.Place) {
   try {
     const nuevoPlace = new PlaceModel(place)
     const placeSave = await nuevoPlace.save()
-
-    console.log('Lugar creado exitosamente:', placeSave)
     return placeSave
   } catch (error: any) {
     throw new Error(error)
@@ -19,7 +17,6 @@ export async function editPlaceService(place: type.Place) {
   try {
     const editPlace = new PlaceModel(place)
     await PlaceModel.findByIdAndUpdate(place._id, editPlace)
-    console.log('Lugar editado exitosamente:', editPlace)
     return editPlace
   } catch (error: any) {
     throw new Error(error)
@@ -28,11 +25,9 @@ export async function editPlaceService(place: type.Place) {
 
 export async function museumPlaceService() {
   try {
-    console.log('entro al museumPlaceService ')
     const museumPlacesData = Object.values(museumPlaces)
     museumPlacesData.forEach((place: any) => {
       if (place.name) {
-        console.log(place)
         const latitud = parseFloat(place.latitude.replace(',', '.'))
         const longitud = parseFloat(place.longitude.replace(',', '.'))
 
@@ -48,12 +43,11 @@ export async function museumPlaceService() {
           },
           score: place.score || 0,
         }
-        console.log()
         createPlaceService(memoryplace)
       }
     })
   } catch (error) {
-    console.error('Error al crear el lugar:', error)
+    throw error
   }
 }
 
@@ -78,7 +72,7 @@ export async function memoryPlaceService() {
       }
     })
   } catch (error) {
-    console.error('Error al crear el lugar:', error)
+    throw error
   }
 }
 
@@ -107,7 +101,6 @@ export async function nearestPlacesService(location: type.Location) {
     const minDistance = 0
     const maxDistance = 5000000
 
-    console.log('estoy en el servicio')
     const lugaresCercanos = await PlaceModel.find({
       location: {
         $nearSphere: {
@@ -121,7 +114,6 @@ export async function nearestPlacesService(location: type.Location) {
       },
     })
 
-    console.log('Lugares ordenados por cercanía:', lugaresCercanos)
     return lugaresCercanos
   } catch (error) {
     throw new Error('Error al buscar los lugares ordenados por distancia')

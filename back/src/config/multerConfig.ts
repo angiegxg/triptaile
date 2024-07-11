@@ -5,7 +5,6 @@ const multerUpload = multer({
   storage: multer.diskStorage({
     destination: 'uploads',
     filename: (_req, file, cb) => {
-      // Generar un nombre de archivo único basado en el nombre original y la fecha actual
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9)
       const extension = extname(file.originalname)
       cb(null, file.fieldname + '-' + uniqueSuffix + extension)

@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { HttpEvent } from '@angular/common/http';
 import { HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environments';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { Observable } from 'rxjs';
 export class UploadFileService {
   private readonly _http = inject(HttpClient);
   private readonly router = inject(Router);
-  private uploadUrl = 'http://localhost:3000/api/upload'; // Cambia esta URL por la ruta de tu API donde se maneja la carga de archivos
+  private uploadUrl = `${environment.baseUrl}/api/upload`;
 
   constructor(private http: HttpClient) { }
 

@@ -7,6 +7,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { Router } from "@angular/router";
 import * as type from "../../shared/types"
 import { NzMessageService} from "ng-zorro-antd/message";
+import { environment } from "../../../environments/environments";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class UserService {
   private readonly _http = inject(HttpClient);
   private readonly router = inject(Router);
   private message= inject(NzMessageService) 
-  private readonly _url = "http://localhost:3000/user";
+  private readonly _url = environment.baseUrl+"/user";
   private tokenKey = 'authorization'
   constructor() { 
 
