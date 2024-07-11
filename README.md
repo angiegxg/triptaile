@@ -7,7 +7,7 @@ Echa un vistazo a nuestro código, colabora y ayúdanos a hacer de Trip Tale Ada
 
 ## Screenshots
 
-![App Screenshot](images\screnWelcome.png)
+![App Screenshot](https://github.com/angiegxg/triptaile/blob/main/images/screnWelcome.png)
 
 
 ##  Instrucciones de Instalación
@@ -64,13 +64,16 @@ Para configurar el entorno de desarrollo:
             ```
 ### Ejecutar la Aplicación
 Para poner en marcha la aplicación:
-
-1. Inicia el servidor backend desde el directorio back:
+1. Antes de iniciar el servidor backend, usemos la semilla para tener el usuario de administración
+```bash
+   npm run seed
+```
+2. Inicia el servidor backend desde el directorio back:
 
 ```bash
    npm start
 ```
-2. En una nueva terminal, inicia la aplicación frontend desde el directorio front:
+3. En una nueva terminal, inicia la aplicación frontend desde el directorio front:
 
 ```bash
   ng s
