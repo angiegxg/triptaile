@@ -22,7 +22,7 @@ export class SearchPlaceComponent {
  
 
   onChange(value: string): void {
-    console.log(value);
+    
     this.PlaceService.searchByNamePlaceService(value)
   }
 

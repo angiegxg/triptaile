@@ -35,10 +35,10 @@ ngOnInit() {
  
 
     if (this.detail._id) {
-      this.postService.getPosts().subscribe(() => {
+      
         this.reviews = this.postService.getPostPublicByPlace(this.detail._id || "");
         console.log("estos son los post de este place", this.reviews);
-      });
+      
     }
   }
 

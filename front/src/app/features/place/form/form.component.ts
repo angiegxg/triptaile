@@ -6,7 +6,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as types from '../../../shared/types';
 import { PlaceService } from '../place.service';
-
+import { ErrorMessageComponent } from '../../../shared/components/error-message/error-message.component';
+import { sanitizer } from '../../../core/validators/validator';
+import { NzMessageService } from 'ng-zorro-antd/message';
 @Component({
   selector: 'app-form',
   standalone: true,
@@ -15,7 +17,8 @@ import { PlaceService } from '../place.service';
     NzFormModule,
     FormsModule,
     NzInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ErrorMessageComponent
   ],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
@@ -24,12 +27,13 @@ export class FormComponent {
   place!: types.Place;
   placeForm: FormGroup;
   currentRoute: string;
+  private message= inject(NzMessageService) 
   public readonly activeRoute = inject(ActivatedRoute);
 
   constructor(private router: Router, private fb: FormBuilder, private placeService: PlaceService) {
     this.placeForm = this.makeform();
     this.currentRoute = this.activeRoute.snapshot.routeConfig?.path || '';
-    console.log(this.currentRoute);
+   
     if (this.currentRoute === 'edit') {
       this.editForm();
     
@@ -48,11 +52,11 @@ export class FormComponent {
   makeform(): FormGroup {
     return this.fb.group({
       _id: [''],
-      name: ['', Validators.required],
-      type: ['', Validators.required],
-      description: ['', Validators.required],
-      cover: ['', Validators.required],
-      provincia: ['', Validators.required],
+      name: ['', [Validators.required, sanitizer()]],
+      type: ['', [Validators.required, sanitizer()]],
+      description: ['', [Validators.required, sanitizer()]],
+      cover: ['', [Validators.required, sanitizer()]],
+      provincia: ['',[Validators.required, sanitizer()]],
       location: this.fb.group({
         type: ['Point', Validators.required],
         coordinates: [[0, 0], [Validators.required, this.coordinatesValidator]]
@@ -74,43 +78,41 @@ export class FormComponent {
       const formDataCopy = { ...this.placeForm.value };
 
       if (this.currentRoute === 'newplace') {
-        console.log("Estoy dentro del submit para saber la ruta actual", this.currentRoute);
         delete formDataCopy._id;
-        console.log(formDataCopy);
 
         this.placeService.createPlaceService(formDataCopy).subscribe(
           (response) => {
-            console.log('Server response:', response);
+            this.message.create("success", `Place has been successfully created`)
             this.router.navigate(['/welcome']);
           },
           (error) => {
-            console.error('Error creating place:', error);
+            this.message.create("error", `Place hasn't been successfully created`);
           }
         );
       } else if (this.currentRoute === 'edit') {
-        console.log(this.placeForm.valid);
+        
 
         this.placeService.updatePlace(this.placeForm.value).subscribe(
           (response) => {
-            console.log('Server response:', response);
+            this.message.create("success", `Place has been successfully edited`)
             this.router.navigate(['/welcome']);
           },
           (error) => {
-            console.error('Error updating place:', error);
+            this.message.create("error", `Place hasn't been successfully edited`);
           }
         );
       }
     } else {
-      console.log('Form is invalid:', this.placeForm);
+      
       for (const controlName in this.placeForm.controls) {
         if (this.placeForm.controls.hasOwnProperty(controlName)) {
           const control = this.placeForm.get(controlName);
-          console.log(`${controlName}: ${control?.valid}`);
+          this.message.create("error", `${controlName}: ${control?.valid}`)
           if (control instanceof FormGroup) {
             for (const subControlName in control.controls) {
               if (control.controls.hasOwnProperty(subControlName)) {
                 const subControl = control.get(subControlName);
-                console.log(`  ${subControlName}: ${subControl?.valid}`);
+                this.message.create("error", `  ${subControlName}: ${subControl?.valid}`)
               }
             }
           }

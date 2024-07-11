@@ -1,50 +1,70 @@
 <form nz-form [formGroup]="placeForm" (ngSubmit)="submitForm()" >
     <nz-form-item>
       <nz-form-label [nzSpan]="6" nzFor="name">Name</nz-form-label>
-      <nz-form-control [nzSpan]="14">
+      <nz-form-control [nzSpan]="14" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="nameErrorTpl">
         <input nz-input name="name" type="text" id="name"   formControlName="name"/>
+        <ng-template #nameErrorTpl let-control>
+          <app-error-message [control]="placeForm.get('name')"></app-error-message>
+        </ng-template>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
         <nz-form-label [nzSpan]="6" nzFor="type">type</nz-form-label>
-        <nz-form-control [nzSpan]="14">
+        <nz-form-control [nzSpan]="14" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="typeErrorTpl">
           <input nz-input name="type" type="text" id="type"   formControlName="type"/>
+          <ng-template #typeErrorTpl let-control>
+            <app-error-message [control]="placeForm.get('type')"></app-error-message>
+          </ng-template>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzFor="description">description</nz-form-label>
-        <nz-form-control [nzSpan]="18">
-            <textarea nz-input name="description" type="text" id="description" formControlName="description" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
-         
+        <nz-form-control [nzSpan]="14" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="descriptionErrorTpl">
+            <textarea nz-input name="description" class="scroll-bar" type="text" id="description" formControlName="description" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+            <ng-template #descriptionErrorTpl let-control>
+              <app-error-message [control]="placeForm.get('description')"></app-error-message>
+            </ng-template>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzFor="cover">cover</nz-form-label>
-        <nz-form-control [nzSpan]="14">
+        <nz-form-control [nzSpan]="14" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="coverErrorTpl">
           <input nz-input name="cover" type="text" id="cover" formControlName="cover"/>
+          <ng-template #coverErrorTpl let-control>
+            <app-error-message [control]="placeForm.get('cover')"></app-error-message>
+          </ng-template>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzFor="provincia">provincia</nz-form-label>
-        <nz-form-control [nzSpan]="14">
+        <nz-form-control [nzSpan]="14" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="provinciaErrorTpl">
           <input nz-input name="provincia" type="text" id="provincia" formControlName="provincia"/>
+          <ng-template #provinciaErrorTpl let-control>
+            <app-error-message [control]="placeForm.get('provincia')"></app-error-message>
+          </ng-template>
         </nz-form-control>
       </nz-form-item>
 
    <div formGroupName="location">
     <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzFor="coordinates">provincia</nz-form-label>
+        <nz-form-label [nzSpan]="6" nzFor="coordinates">Coordinates</nz-form-label>
         <nz-form-control [nzSpan]="14">
           <input nz-input name="coordinates" type="text" id="coordinates" formControlName="coordinates"/>
         </nz-form-control>
       </nz-form-item>
 
    </div>
-   <button nz-button nzType="primary" type="submit">Submit</button>
+   <nz-form-item>
+    <nz-form-label [nzSpan]="6" ></nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <button nz-button nzType="primary" type="submit">Submit</button>
+    </nz-form-control>
+  </nz-form-item>
+   
   </form>
 
 

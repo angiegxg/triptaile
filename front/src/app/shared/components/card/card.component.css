@@ -1,5 +1,30 @@
-
+@import "../../../../style/colors.scss";
       p {
         margin: 0;
       }
+
+      .cover{
+        width:100%; 
+        height:auto
+      }
+
+      .newpost{
+      
+        background-color: #F2CB05 !important;
+        a{
+          color: rgb(73, 73, 73);
+          text-decoration: none;
+        }
+        
+        
+      }
+
+
+      .cardcontainer{
+        border-radius: 5px;
+        margin: 10px;
+      }
     
+      @media (min-width: 769px) {
+        
+    }

@@ -1,0 +1,41 @@
+
+    <nz-table #editRowTable nzBordered [nzData]="listOfData()" nzTableLayout="fixed" ngSkipHydration>
+      <thead>
+        <tr>
+          <th >Name</th>
+          <th >Email</th>
+          <th >Role</th>
+          
+          
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of editRowTable.data">
+          <ng-container *ngIf="!editCache[data._id!].edit; else editTemplate">
+            <td>{{ data.nickname }}</td>
+            <td>{{ data.email }}</td>
+            <td><label nz-checkbox [(ngModel)]="data.role" disabled></label> </td>
+            <td>
+              <a (click)="startEdit(data._id!)"><span nz-icon nzType="edit" nzTheme="outline"></span></a>
+              <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="delete(data._id!)"><span nz-icon nzType="delete" nzTheme="outline"></span></a>
+            
+            </td>
+          </ng-container>
+          <ng-template #editTemplate>
+                       
+            <td><input type="text" nz-input [(ngModel)]="editCache[data._id!].data.nickname" required /></td>
+            <td><input type="text" nz-input [(ngModel)]="editCache[data._id!].data.email"  required/></td>
+            
+            <td><label nz-checkbox input type="text"  [(ngModel)]="editCache[data._id!].data.role" required > </label></td>
+            
+           
+            <td>
+              <a (click)="saveEdit(data._id!)" class="save">Save</a>
+              <a nz-popconfirm nzPopconfirmTitle="Sure to cancel?" (nzOnConfirm)="cancelEdit(data._id!)">Cancel</a>
+            </td>
+          </ng-template>
+        </tr>
+      </tbody>
+    </nz-table>
+  

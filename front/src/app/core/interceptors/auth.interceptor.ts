@@ -1,17 +1,28 @@
-import { HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
-import { UserService } from '../../features/user/user.service';
-import { HttpHeaders } from '@angular/common/http';
+import type { HttpErrorResponse, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import { catchError, throwError } from 'rxjs';
 
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const authService = inject(UserService);
-  const token = authService.getTokenService();
-  const newHeaders = new HttpHeaders().set('Authorization', `${token}`);
-    
-    const clonedReq = req.clone({
-      headers: newHeaders,
-    });
-    console.log('este es la req modificada', clonedReq);
-    return next(clonedReq);
-  
+export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+    const token: string = localStorage.getItem('authorization') || 'string';
+
+    let request = req;
+
+    if (token) {
+      request = req.clone({
+        setHeaders: {
+          authorization: `${token}`
+        }
+      });
+    }
+   
+
+    return next(request).pipe(catchError(HttpInterceptorFn));
+  }
+
+  return next(req).pipe(catchError(HttpInterceptorFn));
+};
+
+function HttpInterceptorFn(error: HttpErrorResponse): ReturnType<typeof throwError> {
+  const errorResponse = `Error code: ${error.status}, Error message: ${error.message}`;
+  return throwError(() => errorResponse);
 };

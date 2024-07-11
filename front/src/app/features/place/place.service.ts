@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap, filter} from "rxjs";
 import * as type from "../../shared/types"
+import { NzMessageService} from "ng-zorro-antd/message";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class PlaceService {
   public providencePlace= signal<string[]>([]);
   private readonly _http = inject(HttpClient);
   private readonly _url = environment.url;
+  private message= inject(NzMessageService) 
 
   constructor() { 
     this.getPlaces();
@@ -58,14 +60,14 @@ export class PlaceService {
       return this._http.delete<{ success: boolean }>(`${this._url}/${id}`).pipe(
         tap(response => {
           
-            console.log(`Place with id ${id} deleted successfully.`);
+          this.message.create("success", `Place with id ${id} deleted successfully.`)
             this.places.update(places => {
               const index = places.findIndex(place => place._id === id);
               
               if (index !== -1) {
                 places.splice(index, 1);
               }
-              console.log([...places])
+              
               return [...places];
             });
           
@@ -91,7 +93,7 @@ export class PlaceService {
       provinceSet.add(place.provincia);
     });
     this.providencePlace.set(Array.from(provinceSet));
-    console.log(this.providencePlace)
+  
   }
   
   public filterByProvincePlaceService(provincia: string): void {
@@ -105,11 +107,15 @@ export class PlaceService {
 
   public nearestPlaceService(location:type.Location): void {
     this._http.post<type.Place[]>(`${this._url}/nearestplaces`, location).pipe(tap((data: type.Place[]) => {
-      console.log(data)
+      
       this.filteredPlaces.set(data)
     }))
     .subscribe();
     
+  }
+  public getPlaceById(id:string): type.Place | undefined {
+    const place=this.places().find(place => place._id! === id)
+    return place 
   }
 
   }

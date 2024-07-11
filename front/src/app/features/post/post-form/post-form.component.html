@@ -1,0 +1,58 @@
+
+
+<form nz-form [formGroup]="postForm" (ngSubmit)="submitForm()" >
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="private">Private</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      
+      <label class="switch">
+        <input type="checkbox" id="private" formControlName="private" name="private"  checked>
+        <span class="slider round"></span>
+      </label>
+      
+    </nz-form-control>
+  </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="review">TripTaile</nz-form-label>
+      <nz-form-control [nzSpan]="14" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="reviewErrorTpl">
+        <input nz-input name="review" type="text" id="review"   formControlName="review"/>
+        <ng-template #reviewErrorTpl let-control>
+          <app-error-message [control]="postForm.get('review')"></app-error-message>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="rate">score</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="rateErrorTpl">
+          <input nz-input name="rate" type="number" id="rate"   formControlName="rate"/>
+          <ng-template #rateErrorTpl let-control>
+            <app-error-message [control]="postForm.get('rate')"></app-error-message>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="cover">Cover</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+          <input nz-input name="cover" id="cover"  type="file" (change)="onFileSelected($event)" />
+        </nz-form-control>
+      </nz-form-item>
+
+    
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" ></nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <button nz-button nzType="primary" type="submit">Submit</button>
+        </nz-form-control>
+      </nz-form-item>
+  </form>
+
+ 
+
+ 
+
+
+
+

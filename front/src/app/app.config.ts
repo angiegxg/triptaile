@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { withFetch, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {provideImgixLoader} from '@angular/common';
 
 registerLocaleData(en);
 
@@ -24,6 +24,7 @@ export const appConfig: ApplicationConfig = {
     provideNzI18n(en_US), 
     importProvidersFrom(FormsModule), 
     provideAnimationsAsync(), 
+    provideImgixLoader("http://localhost:4200/"),
     provideHttpClient(withFetch(), withInterceptors([authInterceptor]))
   ]
 };

@@ -8,6 +8,7 @@ export async function createPlaceController(req: Request, res: Response) {
     }
 
     const place = req.body
+    console.log(place)
     const newPlace = await placeService.createPlaceService(place)
     res.status(200).json(newPlace)
 

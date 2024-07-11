@@ -17,14 +17,17 @@ export interface Place {
   }
   
   export interface Post {
-    _id?: string
+    _id: string
     idUser: string
-    place: string
+    place: string | Place
     review: string
     cover: string
     rate: number
     private: Bolean
   }
+
+  export type postCreate = Omit<Post, '_id'>;
+
   
   export interface User {
     _id?: string
@@ -38,7 +41,7 @@ export interface Place {
   }
 
   export type UserRegister = Omit<User, 'role'>;
-  
+  export type decodeToken = Omit<User, 'password', 'nation','avatar','post'>;
   export interface Login {
     email: string
     password: string

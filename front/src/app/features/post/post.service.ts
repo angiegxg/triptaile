@@ -1,44 +1,135 @@
 import { environment } from "../../../environments/environments.development";
 import { Injectable, inject, signal } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { tap, filter } from "rxjs";
+import { throwError } from "rxjs";
+import { catchError, tap } from 'rxjs/operators';
 import * as type from "../../shared/types"
+import { PlaceService } from "../place/place.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
   public posts = signal<type.Post[]>([]);
-  public filteredPosts= signal<type.Post[]>([]);
+  public filteredPostsPublic= signal<type.Post[]>([]);
+  public postsUser = signal<type.Post[]>([])
+  public mixedPostsUser = signal<type.Place[]>([])
   private readonly _http = inject(HttpClient);
+  private readonly placeService =inject (PlaceService)
   private readonly _url = environment.url;
 
   constructor() { 
     this.getPosts();
-    console.log("estoy en el constructor del servicio post",this.posts)
+  
     
   }
 
   
 
-  public getPosts(): Observable<type.Post[]> {
-    return this._http.get<type.Post[]>(`http://localhost:3000/post/`).pipe(
+  public getPosts(): void {
+     this._http.get<type.Post[]>(`http://localhost:3000/post/`).pipe(
       tap((data: type.Post[]) => {
         this.posts.set(data);
-        this.filteredPosts.set(data);
-        console.log("estoy en get post", data);
+      })
+    ).subscribe();
+  }
+
+  public createPostService(post: type.Post){
+    return this._http.post<type.Post>(`http://localhost:3000/post/`, post).pipe(
+      tap((newPost: type.Post) => {
+         this.postsUser.update(posts=>[...posts,newPost])
+         this.posts.update(posts=>[...posts,newPost])      
       })
     );
   }
 
+  getPostById(id:string){
+    return this.posts().find(post => post._id === id)
+  }
+
   public getPostPublicByPlace(id:string):type.Post[]{
-    return this.posts().filter(post => post.place === id && post.private === false)
+     return this.posts().filter(post => post.place === id && post.private === false)
     
   }
 
-  public getPostByUser(idUser:string):type.Post[]{
-    return this.posts().filter(post => post.idUser === idUser)
+  public getPostByUser(idUser: string): void {
+    
+    const postUser = this.posts().filter(post => post.idUser === idUser);
+   
+    const mixedPostPlace: type.Place[] = [];
+  
+    postUser.forEach(post => {
+      if (typeof post.place === 'string') {
+        const place = this.placeService.getPlaceById(post.place);
+        if (place) {
+          post.place = place;
+        }
+      }
+      if (typeof post.place !== 'string') {
+        const constructormixedPostPlace: type.Place = {
+          _id: post._id,
+          name: post.place.name,
+          type: post.place.type,
+          description: post.review,
+          cover: post.cover,
+          provincia: post.place.provincia,
+          location: post.place.location,
+          score: post.rate
+        };
+      
+        mixedPostPlace.push(constructormixedPostPlace);
+      }
+    });
+  
+    this.mixedPostsUser.set(mixedPostPlace);
+  }
+  
+
+  public updatePostService(post: type.User){
+    return this._http.put<type.Post>(`http://localhost:3000/post/`, post)
+    .pipe(
+      tap((updatedUser: type.Post) => {
+      this.postsUser.update(posts => {
+        const index = posts.findIndex(u => u._id === updatedUser._id);
+        posts[index] = updatedUser;
+        return [...posts];
+      })
+      }),
+      catchError(this.handleError)
+    );
+  }
+  public deletePostService(id: string) {
+    return this._http.delete<{ success: boolean }>(`http://localhost:3000/post/${id}`).pipe(
+      tap(response => {
+        
+          console.log(`Place with id ${id} deleted successfully.`);
+          this.posts.update(posts => {
+            const index = posts.findIndex(post => post._id === id);
+            
+            if (index !== -1) {
+              posts.splice(index, 1);
+            }
+            console.log([...posts])
+            return [...posts];
+          });
+        
+      })
+    );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    console.log(error)
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // Error del lado del cliente
+      errorMessage = `Client-side error: ${error.error.message}`;
+    } else {
+      // Error del lado del servidor
+      errorMessage = `Server-side error: ${error.status} - ${error.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
   }
  
 }

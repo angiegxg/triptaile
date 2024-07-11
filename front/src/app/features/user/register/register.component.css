@@ -10,4 +10,44 @@
       .register-area {
         margin-bottom: 8px;
       }
+
+      
+
+      .formRegister{
+        padding: 2%;
+      }
+
+      
+
+    @media only screen and (max-width: 768px) {
+      .itemRegister{
+         
+        display: grid;
+        justify-items: center;
+       
+        padding: 0;
+        margin: 0;
+        
+              
+    }
+    }
+
+
+      @media (min-width: 769px){
+
+        /* .containerRegister{
+          display:grid;
+          align-items: center;
+          height: 70vh;
+        } */
+  
+        .formRegister{
+          padding-top: 5%;
+        }
+
+      
+  
+
+        
+      }
     

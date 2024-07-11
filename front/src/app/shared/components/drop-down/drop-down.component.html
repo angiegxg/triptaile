@@ -1,13 +1,10 @@
 <a nz-dropdown [nzDropdownMenu]="menu">
-  Hover me
-  <span nz-icon nzType="down"></span>
+  <span nz-icon nzType="setting" nzTheme="outline"></span>
 </a>
 <nz-dropdown-menu #menu="nzDropdownMenu">
   <ul nz-menu nzSelectable>
-    <li nz-menu-item><a [routerLink]="['/place/edit']" [state]="{place: place}">Edith</a></li>
+    <li nz-menu-item><a (click)="edit(place)">Edith</a></li>
     <li nz-menu-item><a (click)="deletePlace(place._id!)">Delete</a></li>
-    <li nz-menu-item>3rd menu item</li>
-    <li nz-menu-item nzDanger>4th danger item</li>
   </ul>
 </nz-dropdown-menu>
 

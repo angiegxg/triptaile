@@ -11,19 +11,8 @@ export async function createPostController(req: Request, res: Response) {
 
     const post = req.body
 
-    if (req.body.place) {
-      req.body.place = JSON.parse(req.body.place)
-    }
-
     // Verificar si hay un archivo en la solicitud
-    if (req.file) {
-      // Crear la URL de la imagen
-      const imgURL = `http://localhost:3000/uploads/${req.file.filename}`
-      post.cover = imgURL
-    } else {
-      throw console.error('request body is required')
-      // return res.status(400).json({ message: "Image file is required" });
-    }
+
     const newScorePlace = await calculatePlaceScoreController(post.place._id)
 
     if (newScorePlace) {

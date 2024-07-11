@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import * as userService from '../services/userService'
+
 // import * as type from "../types."
 
 export async function createUserController(req: Request, res: Response) {
@@ -37,6 +38,21 @@ export async function checkUserController(req: Request, res: Response): Promise<
     res.status(200).json({ exists: userExists })
   } catch (error: any) {
     res.status(500).json({ error: error.message })
+  }
+}
+export async function getUserByToken(req: Request, res: Response) {
+  try {
+    console.log('estoy en el controlador de getuserbytoken', req)
+    const payload = req.user
+    if (payload) {
+      const user = await userService.findUserById(payload)
+      res.json(user)
+    } else {
+      res.status(400).json({ error: 'No se pudo obtener el usuario' })
+    }
+  } catch (error) {
+    console.error('Error al obtener usuario:', error)
+    res.status(500).json({ error: 'Error interno del servidor' })
   }
 }
 

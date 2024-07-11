@@ -4,8 +4,6 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 export async function createUserService(user: type.User) {
-  // Hash de la contraseña
-
   const hashedPassword = await bcrypt.hash(user.password, 10)
   user.password = hashedPassword
 
@@ -23,13 +21,11 @@ export async function createUserService(user: type.User) {
 }
 
 function createTokenService(user: type.User): string {
-  const payload = { user_id: user._id, user_email: user.email }
+  const payload = { user_id: user._id, user_email: user.email, user_role: user.role }
   return jwt.sign(payload, 'triptale')
 }
 
 export async function checkUserService(user: type.Login) {
-  // Hash de la contraseña
-
   const userfind = await UserModel.findOne({ email: user.email })
 
   try {

@@ -6,6 +6,9 @@ import * as types from '../../../shared/types';
 import { UserService } from '../user.service';
 import { UploadFileService } from '../../../services/upload-file.service';
 import { HttpEvent, HttpResponse } from '@angular/common/http';
+import { sanitizer } from '../../../core/validators/validator';
+import { ErrorMessageComponent } from '../../../shared/components/error-message/error-message.component';
+import { NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
   selector: 'app-register',
@@ -15,7 +18,8 @@ import { HttpEvent, HttpResponse } from '@angular/common/http';
     CommonModule,
     NzFormModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ErrorMessageComponent
   ],
   styleUrls: ['./register.component.css']
 })
@@ -23,7 +27,7 @@ export class RegisterComponent {
 
   public user!: types.User;
   public userForm: FormGroup;
-
+  private message= inject(NzMessageService) 
   private userService = inject(UserService)
   private fileUploadService = inject(UploadFileService)
 
@@ -33,10 +37,10 @@ export class RegisterComponent {
 
   makeForm(): FormGroup {
     return this.fb.group({
-      nickname: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      nation: ['', [Validators.required]],
+      nickname: ['', [Validators.required, sanitizer()]],
+      email: ['', [Validators.required, Validators.email, sanitizer()]],
+      password: ['', [Validators.required,sanitizer()]],
+      nation: ['', [Validators.required, sanitizer()]],
       avatar: ['', [Validators.required]],
       file: [null]
     });
@@ -48,14 +52,15 @@ export class RegisterComponent {
       this.fileUploadService.upload(file).subscribe(
         (event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
-            console.log('Server response:', event.body);
+            
             this.userForm.patchValue({
               avatar: event.body.url
             });
           }
         },
         (error) => {
-          console.error('Error uploading file:', error);
+          this.message.create("error", `Error uploading file ${error.message }`)
+         
         }
       );
     }
@@ -67,11 +72,12 @@ console.log(this.userForm.valid)
       const formData = this.userForm.value;
       this.userService.registerUserService(formData).subscribe(
         (response) => {
-          console.log('Server response:', response);
+          this.message.create("success", `Usser has been created successfully`)
+          
          
         },
         (error) => {
-          console.error('Error updating place:', error);
+          this.message.create("error", `Usser hasn't been created ${error.message }`)
         }
       );
       

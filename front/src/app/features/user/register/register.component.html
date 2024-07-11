@@ -1,39 +1,61 @@
-<form [formGroup]="userForm" (ngSubmit)="submitForm()">
+<div class="containerRegister" >
+  
+<form class="formRegister" [formGroup]="userForm" (ngSubmit)="submitForm()">
 
-  <nz-form-item>
-    <nz-form-label [nzSpan]="6" nzFor="nickname">Nickname</nz-form-label>
-    <nz-form-control [nzSpan]="14">
+  <nz-form-item class="itemRegister">
+    <nz-form-label [nzSpan]="8" nzFor="nickname">Nickname</nz-form-label>
+    <nz-form-control [nzSpan]="14" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
       <input nz-input name="nickname" type="text" id="nickname"   formControlName="nickname"/>
+      <ng-template #userErrorTpl let-control>
+        <app-error-message [control]="userForm.get('nickname')"></app-error-message>
+      </ng-template>
     </nz-form-control>
   </nz-form-item>
 
-  <nz-form-item>
-    <nz-form-label [nzSpan]="6" nzFor="email">Nickname</nz-form-label>
-    <nz-form-control [nzSpan]="14">
+  <nz-form-item class="itemRegister">
+    <nz-form-label [nzSpan]="8" nzFor="email">Email</nz-form-label>
+    <nz-form-control [nzSpan]="14" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="emailErrorTpl">
       <input nz-input name="email" type="text" id="email"   formControlName="email"/>
+      <ng-template #emailErrorTpl let-control>
+        <app-error-message [control]="userForm.get('email')"></app-error-message>
+      </ng-template>
     </nz-form-control>
   </nz-form-item>
 
-  <nz-form-item>
-    <nz-form-label [nzSpan]="6" nzFor="password">Password</nz-form-label>
-    <nz-form-control [nzSpan]="14">
+  <nz-form-item class="itemRegister">
+    <nz-form-label [nzSpan]="8" nzFor="password">Password</nz-form-label>
+    <nz-form-control [nzSpan]="14" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="passwordErrorTpl">
       <input nz-input name="password" type="password" id="password"   formControlName="password"/>
+      <ng-template #passwordErrorTpl let-control>
+        <app-error-message [control]="userForm.get('password')"></app-error-message>
+      </ng-template>
     </nz-form-control>
   </nz-form-item>
 
-  <nz-form-item>
-    <nz-form-label [nzSpan]="6" nzFor="nation">Nation</nz-form-label>
-    <nz-form-control [nzSpan]="14">
+  <nz-form-item class="itemRegister">
+    <nz-form-label [nzSpan]="8" nzFor="nation">Nation</nz-form-label>
+    <nz-form-control [nzSpan]="14" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="nationErrorTpl">
       <input nz-input name="nation" type="nation" id="nation"   formControlName="nation"/>
+      <ng-template #nationErrorTpl let-control>
+        <app-error-message [control]="userForm.get('nation')"></app-error-message>
+      </ng-template>
     </nz-form-control>
   </nz-form-item>
 
-  <nz-form-item>
-    <nz-form-label [nzSpan]="6" nzFor="avatar">avatar</nz-form-label>
+  <nz-form-item class="itemRegister">
+    <nz-form-label [nzSpan]="8" nzFor="avatar">avatar</nz-form-label>
     <nz-form-control [nzSpan]="14">
       <input nz-input id="file" type="file" (change)="onFileSelected($event)" />
     </nz-form-control>
   </nz-form-item>
+
+  <nz-form-item >
+    <nz-form-label [nzSpan]="8" nzFor="avatar"></nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <button nz-button nzType="primary" type="submit">Submit</button>
+    </nz-form-control>
+  </nz-form-item>
   
-  <button nz-button nzType="primary" type="submit">Submit</button>
+  
 </form>
+</div>

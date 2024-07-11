@@ -1,17 +1,26 @@
 
+    <div class="containerform">
+
+  
     <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
       <nz-form-item>
-        <nz-form-control nzErrorTip="Please input your username!">
+        <nz-form-control nzErrorTip="Please input your email!" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="emailErrorTpl">
           <nz-input-group nzPrefixIcon="user">
             <input type="text" nz-input formControlName="email" placeholder="email" />
           </nz-input-group>
+          <ng-template #emailErrorTpl let-control>
+            <app-error-message [control]="loginForm.get('email')"></app-error-message>
+          </ng-template>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-control nzErrorTip="Please input your Password!">
+        <nz-form-control nzErrorTip="Please input your Password!" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="passwordErrorTpl">
           <nz-input-group >
             <input type="password" nz-input formControlName="password" placeholder="Password" />
           </nz-input-group>
+          <ng-template #passwordErrorTpl let-control>
+            <app-error-message [control]="loginForm.get('password')"></app-error-message>
+          </ng-template>
         </nz-form-control>
       </nz-form-item>
       <div nz-row class="login-form-margin">
@@ -21,13 +30,15 @@
           </label>
         </div> -->
         <div nz-col [nzSpan]="12">
-          <a class="login-form-forgot">Forgot password</a>
+          
         </div>
       </div>
       <button nz-button class="login-form-button login-form-margin" >Log in</button>
       Or
-      <a>register now!</a>
+      <a [routerLink]="['/auth/register']">register now!</a>
 
       
     </form>
+
+  </div>
   

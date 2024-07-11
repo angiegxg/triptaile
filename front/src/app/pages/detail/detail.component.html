@@ -1,4 +1,4 @@
-<nz-descriptions nzTitle="User Info">
+<nz-descriptions nzTitle="Place Info">
     <nz-descriptions-item nzTitle="Place"> {{detail.name}} </nz-descriptions-item>
     
     <nz-descriptions-item nzTitle="Telephone"><img
@@ -12,15 +12,19 @@
     <nz-descriptions-item nzTitle="Description">{{detail.description}}</nz-descriptions-item>
     <nz-descriptions-item nzTitle="Score"> {{detail.score}} </nz-descriptions-item>
     <nz-descriptions-item nzTitle="Review">
+      @for(review of reviews; track review){
     
+        <app-review [review]="review"></app-review>
+    
+      }
       
     </nz-descriptions-item>
-    <button (click)="getGoogleMapsUrl()">Como llegar</button>
+    <nz-descriptions-item >
+      <button (click)="getGoogleMapsUrl()">Show on Map</button>
+      
+    </nz-descriptions-item>
+    
   </nz-descriptions>
 
   
-  @for(review of reviews; track review){
-    
-    <app-review [review]="review"></app-review>
-
-  }
+ 

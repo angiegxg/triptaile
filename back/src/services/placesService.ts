@@ -40,7 +40,7 @@ export async function museumPlaceService() {
           name: place.name,
           type: 'Museum',
           description: place.observations !== undefined ? place.observations : 'por definir',
-          cover: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Flag_of_Andaluc%C3%ADa.svg/2000px-Flag_of_Andaluc%C3%ADa.svg.png',
+          cover: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Bandera_de_Andalucia.svg',
           provincia: place.province,
           location: {
             type: 'Point',

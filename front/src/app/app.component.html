@@ -4,49 +4,67 @@
 
 <nz-layout class="app-layout">
   <nz-sider class="menu-sidebar"
+  class="sidebar"
     nzCollapsible
     nzWidth="256px"
     nzBreakpoint="md"
     [(nzCollapsed)]="isCollapsed"
     [nzTrigger]="null">
     <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-        <h1>Ant Design Of Angular</h1>
+      <a routerLink="welcome" target="_blank">
+        <img src="../assets/img/logoandalucia-removebg.png" alt="logo">
+        <h1>Trip Tale Andaluz</h1>
       </a>
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Welcome</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Monitor</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Workplace</a>
-          </li>
-        </ul>
+    <ul nz-menu  nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu nzOpen nzTitle="Options" nzIcon="dashboard" class="sidebar">
+        @if(user()?.email){
+
+          <ul class="sidebar">
+            <li nz-menu-item nzMatchRouter>
+              <a routerLink="welcome">Welcome</a>
+            </li>
+            <li nz-menu-item nzMatchRouter>
+              <a routerLink="detail/profile">Profile</a>
+            </li>
+            
+            
+            
+          </ul>
+        }
       </li>
-      <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a>Basic Form</a>
-          </li>
-        </ul>
-      </li>
+      @if(user()?.role){
+        <li nz-submenu nzOpen nzTitle="Admin" nzIcon="form">
+          <ul>
+            <li nz-menu-item nzMatchRouter>
+              <a routerLink="auth/admin">Users</a>
+            </li>
+            <li nz-menu-item nzMatchRouter>
+              <a routerLink="place/newplace">New Place</a>
+            </li>
+          </ul>
+        </li>
+
+      }
     </ul>
+    
   </nz-sider>
   <nz-layout>
     <nz-header>
-      <div class="app-header">
+      <div class="app-header" >
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-            <span class="trigger"
-               nz-icon
-               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-            ></span>
+          <span class="trigger"
+          nz-icon
+          [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+          class="iconcollapse"
+          ></span>
         </span>
+        <div class="avatar">
+          <span> {{user()?.nickname}} </span>
+          <span><app-avatar [avatar]="user()?.avatar || ''"></app-avatar></span>
+          <a (click)="logout()"><span nz-icon nzType="logout" nzTheme="outline"></span></a>
+          
+        </div>
       </div>
     </nz-header>
     <nz-content>
@@ -58,8 +76,19 @@
 </nz-layout>
 }@else {
   <nz-layout class="app-layout">
-    <app-menu-login></app-menu-login>
+    
     <nz-content>
+      <nz-header>
+        <div class="app-header" >
+          
+          <div class="avatar">
+            <span> hola </span>
+            <span><app-avatar [avatar]="user()?.avatar || ''"></app-avatar></span>
+            <a [routerLink]="['/auth']"><span nz-icon nzType="login" nzTheme="outline"></span></a>
+            
+          </div>
+        </div>
+      </nz-header>
     
       <div class="inner-content">
         <router-outlet></router-outlet>
@@ -67,4 +96,6 @@
     </nz-content>
   </nz-layout>
 }
+
+
 

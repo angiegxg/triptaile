@@ -41,6 +41,21 @@ export interface Login {
   password: string
 }
 
+export interface TokenPayload {
+  user_id: string
+  user_email: string
+  user_role: boolean
+  iat: number
+}
+
 interface AuthenticatedRequest extends Request {
-  user?: User
+  user?: string
+}
+
+declare global {
+  namespace Express {
+    export interface Request {
+      user?: string
+    }
+  }
 }
